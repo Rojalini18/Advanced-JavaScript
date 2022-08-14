@@ -1,0 +1,50 @@
+#container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#sidebar {
+  width: 20%;
+  border: 2px solid rgb(12, 11, 11);
+  padding: 0 10px;
+}
+
+#sidebar > p {
+  border: 1px solid rgb(22, 19, 19);
+  padding: 3px;
+}
+
+#main {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 2px solid rgb(24, 20, 20);
+}
+
+#blog {
+  display: flex;
+
+  border: 1.5px solid rgb(14, 11, 11);
+  height: 300px;
+  margin-bottom: 10px;
+  /* padding: 30px; */
+  padding: 0 50px;
+}
+
+#blog > p:first-child {
+  width: 25%;
+
+  border: 1px solid black;
+}
+
+#blog > p:nth-child(2) {
+  width: 30%;
+  border: 1px solid black;
+}
+
+#blog img {
+  width: 45%;
+
+  padding: 16px 0;
+}

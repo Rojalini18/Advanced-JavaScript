@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #navbar{
+            border:1px solid rgb(123, 133, 133);
+            display: flex;
+            height:80px;
+            margin-bottom: 20px;
+           
+            
+        }
+        img{
+            height:40px;
+            width:150px;
+            margin-top: 20px ;
+            margin-left: 30px;
+
+        }
+        #searchdiv{
+            margin-top: 20px;
+            margin-left:300px ;
+        }
+        #search{
+            width:600px;
+            height:30px;
+        }
+        button{
+            background-color: black;
+            border: none;
+            color: white;
+            width:80px;
+            height:34px;
+            font-size: large;
+            margin-top: 3px;
+        }
+        #search_results{
+            display: grid;
+            grid-template-columns: repeat(4,25%);
+            /* grid-template-rows: auto; */
+            grid-gap:15px ;
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREOu-nRARtDlyjhVw-zZWNa9__mx-5FXX6OYqn1G98bdGmZ80YFDI0YUs94WO-UcUw8Pk&usqp=CAU">
+             <!-- <h1>Youtube</h1> -->
+        </div>
+        
+        <div id="searchdiv">
+            <input type="text" id="search"/>
+            <button onclick="searchvideos()">Search</button>
+        </div>
+    </div>
+    <div id="search_results"></div>
+</body>
+</html>
+
+<script>
+
+//https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=football&key=[YOUR_API_KEY] HTTP/1.1
+//api key---> AIzaSyBm1TkKFio5c9brCQ3IppjiflKNJEWbtq0
+const newdiv=document.getElementById("search_results")
+const searchvideos= async ()=> {
+    try
+    {
+        let input=document.getElementById("search").value 
+
+        let res=await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${input}&key=AIzaSyBm1TkKFio5c9brCQ3IppjiflKNJEWbtq0&maxResults=20`)
+        let data=await res.json()
+
+        let videos=data.items;
+        appendvideos(videos);
+        console.log("videos:",videos);
+       
+
+        console.log("data:",data);
+    }
+    catch(err)
+    {
+        console.log("err:",err);
+    }
+
+};
+
+
+
+const appendvideos=(data)=>{    //you can give parameter anything instead of data.
+    newdiv.innerHTML=null;
+    try{
+    data.forEach (({snippet:{title},id:{videoId}})=>{
+
+        let div=document.createElement("div");
+
+        let name=document.createElement("p");
+        name.innerText=title;
+
+        let iframe=document.createElement("iframe")
+        iframe.src=`https://www.youtube.com/embed/${videoId}`;
+
+        // iframe.height="100%";
+        iframe.width="95%";
+        iframe.allow="fullscreen";
+
+        div.append(iframe,name);
+        newdiv.append(div);
+    });
+}catch(err){
+    console.log("err:",err);
+}
+};
+
+//bhayankar step
+//what is embed
+//embed means-adding something
+//embed url=https://www.youtube.com/embed/nwQtr22X1F0
+
+</script>

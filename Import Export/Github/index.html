@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <div id="display-repo"></div>
+  </body>
+</html>
+
+<script type="module">
+  import header from "./components/header.js";
+  let navbar = document.getElementById("navbar");
+
+  navbar.innerHTML = header();
+
+  let inputbox = document.getElementById("search-input");
+  inputbox.addEventListener("keypress", () => {
+    getData(event);
+  });
+
+  const getData = (event) => {
+    // console.log(event)
+    if (event.code === "Enter") {
+      let input = inputbox.value;
+      fetch(`https://api.github.com/users/${input}/repos`)
+        .then((response) => response.json())
+        .then((data) => displayData(data))
+        .catch((error) => console.log(error));
+    }
+  };
+
+  let container = document.getElementById("display-repo");
+
+  const displayData = (data) => {
+    container.innerHTML = null;
+
+    let img = document.getElementById("profile-img");
+    img.src = data[0].owner.avatar_url;
+
+    let left = document.createElement("div");
+    left.id = "left";
+    let profile = document.createElement("img");
+    profile.src = data[0].owner.avatar_url;
+    let user = document.createElement("h2");
+    user.innerText = data[0].owner.login;
+    left.append(profile, user);
+
+    let right = document.createElement("div");
+    right.id = "right";
+
+    data.map((elem) => {
+      let div = document.createElement("div");
+
+      let innerdiv = document.createElement("div");
+
+      let project_name = document.createElement("p");
+      project_name.innerText = elem.name;
+
+      let vis = document.createElement("p");
+      vis.innerText = elem.visibility;
+
+      let lang = document.createElement("p");
+      lang.innerText = elem.language;
+
+      innerdiv.append(project_name, vis);
+
+      div.append(innerdiv, lang);
+
+      right.append(div);
+    });
+
+    container.append(left, right);
+  };
+</script>

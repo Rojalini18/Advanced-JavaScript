@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="city" />
+    <button onclick="getweather()">Get Weather</button>
+    <div id="container"></div>
+  </body>
+</html>
+<script>
+  // let url="https://fakestoreapi.com/products";
+  // let url="https://www.omdbapi.com/?s=avengers&apikey=<Here will be your own api key>";
+
+  // let url="api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}"
+  //b2792d6835823c9442147df3ebc38a15
+
+  let container = document.getElementById("container");
+  async function getweather() {
+    try {
+      let city = document.getElementById("city").value;
+      //`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=974ca0dea58c6d07475ea297216d5278&units=metric`
+      let res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=974ca0dea58c6d07475ea297216d5278&units=metric`
+      );
+
+      let data = await res.json();
+      appenddata(data);
+
+      console.log("data:", data);
+    } catch (err) {
+      console.log("err", err);
+    }
+  }
+
+  function appenddata(data) {
+    container.innerHTML = null;
+
+    let name = document.createElement("h3");
+    name.innerText = data.name;
+
+    let temp = document.createElement("h3");
+    temp.innerText = data.main.temp;
+
+    let pressure = document.createElement("h3");
+    (pressure.innerText = "pressure:"), data.main.pressure;
+
+    let humidity = document.createElement("h3");
+    humidity.innerText = data.main.humidity;
+
+    container.append(name, temp, pressure, humidity);
+  }
+</script>
