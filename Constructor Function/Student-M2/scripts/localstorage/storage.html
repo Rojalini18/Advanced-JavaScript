@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body></body>
+</html>
+
+<script>
+
+    localStorage.setItem("roll",123456789);
+
+    var x=localStorage.getItem("roll");
+    console.log(typeof x)
+
+    var arr=["html","css","js","react"]
+    arr=JSON.stringify(arr)
+
+    localStorage.setItem("web",arr)
+
+
+    var obj={name:"radha", place:"sbp"};
+    obj=JSON.stringify(obj)
+
+    localStorage.setItem("student",obj)
+
+    // var z=localStorage.getItem("student")
+    // z=JSON.parse(z)
+
+    var z=JSON.parse(localStorage.getItem("student"))
+    console.log(z)
+    
+</script>

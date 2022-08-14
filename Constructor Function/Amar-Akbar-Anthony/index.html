@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  function borrowSkill(borrow) {
+    console.log(`My name is ${borrow} and I can be a ${this.skill}`);
+  }
+  const Amar = {
+    city: "mumbai",
+    skill: "singer",
+  };
+  const Akbar = {
+    city: "goa",
+    skill: "Chef",
+  };
+  const Anthony = {
+    city: "kashmir",
+    skill: "magician",
+  };
+
+  borrowSkill.call(Anthony, "Amar", "Akbar");
+  borrowSkill.call(Anthony, "Akbar");
+  borrowSkill.call(Akbar, "Anthony");
+  borrowSkill.call(Akbar, "Amar");
+  borrowSkill.call(Amar, "Anthony");
+  borrowSkill.call(Amar, "Akbar");
+</script>
